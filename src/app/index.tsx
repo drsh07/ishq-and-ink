@@ -1,9 +1,21 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TextInput, Button } from "react-native";
+import { useState } from "react";
 
 export default function Index() {
+
+  const [text, setText] = useState("")
+
   return (
     <View style={styles.container}>
-      <Text>Edit src/app/index.tsx to edit this screen.</Text>
+      <Text style={{width: "100%"}}>Enter text here:</Text>
+      <TextInput 
+        value={text}
+        placeholder="Type here brooo"
+        onChangeText={setText}
+        style={{width: "100%"}}
+      />
+      <Button title="Submit" onPress={() => {}} />
+
     </View>
   );
 }
