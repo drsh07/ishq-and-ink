@@ -1,5 +1,7 @@
 import { Text, View, StyleSheet, TextInput, Button } from "react-native";
 import { useState } from "react";
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from "../../firebaseConfig.js"
 
 export default function Index() {
 
@@ -14,7 +16,7 @@ export default function Index() {
         onChangeText={setText}
         style={{width: "100%"}}
       />
-      <Button title="Submit" onPress={() => {}} />
+      <Button title="Submit" onPress={() => {setDoc(doc(db, "test", "test1"), {content: text});}} />
 
     </View>
   );
