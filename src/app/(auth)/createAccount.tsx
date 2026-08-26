@@ -1,17 +1,25 @@
 import { View, StyleSheet, Text, TextInput, Pressable } from "react-native";
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth"
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../../firebaseConfig"
-import { router, useRouter, Link } from "expo-router";
+import { router, useRouter} from "expo-router";
 
-export default function LoginScreen() {
+export default function CreateAccountScreen() {
 
     const [email, setEmail] = useState("");
     const [passwordText, setPasswordText] = useState("");
+    const [confirmPasswordText, setConfirmPasswordText] = useState("");
 
-    const handelLogin = async () => {
+
+    const handelAccountCreation = async () => {
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, passwordText);
+
+            if (passwordText !== confirmPasswordText) {
+                alert("Passwords do not match!");
+                throw("Passwords do not match");
+            }
+
+            const userCredential = await createUserWithEmailAndPassword(auth, email, passwordText);
             const user = userCredential.user;
         }
         catch (error) {
@@ -37,10 +45,17 @@ export default function LoginScreen() {
             style={styles.textField}
             secureTextEntry={true}
             />
-            <Pressable onPress={handelLogin}>
-                <Text style={styles.button}>Log in</Text>
+            <TextInput 
+            value={confirmPasswordText}
+            placeholder="Confirm password"
+            onChangeText={setConfirmPasswordText}
+            placeholderTextColor={"#797575"}
+            style={styles.textField}
+            secureTextEntry={true}
+            />
+            <Pressable onPress={handelAccountCreation}>
+                <Text style={styles.button}>Create Account</Text>
             </Pressable>
-            <Link href={"/(auth)/createAccount"}>Create Account</Link>
         </View>
     )
 }
@@ -76,8 +91,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         padding: 10,
         backgroundColor: "#ce9ee8",
-        marginTop: 50,
-        marginBottom: 10,
+        marginTop: 50
     }
 
 })

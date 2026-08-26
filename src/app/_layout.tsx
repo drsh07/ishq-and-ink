@@ -4,6 +4,8 @@ import { Inter_300Light } from '@expo-google-fonts/inter'
 import { Playfair_400Regular } from '@expo-google-fonts/playfair'
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -25,8 +27,12 @@ export default function RootLayout() {
     return null;
   }
 
-  return <Stack>
-    <Stack.Screen name="(tabs)" options={{headerShown: false}} />
-    <Stack.Screen name="(auth)" options={{headerShown: false}} />
-  </Stack>;
+
+
+  return (
+    <Stack>
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+    </Stack>
+  )
 }
