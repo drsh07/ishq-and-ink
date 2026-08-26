@@ -5,9 +5,10 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
-import { View, ActivityIndicator, Text } from "react-native";
+import { View, ActivityIndicator, Text, StyleSheet } from "react-native";
 import { router } from 'expo-router';
 import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -32,39 +33,39 @@ export default function RootLayout() {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log("Auth state changed:", currentUser);
-      setUser(currentUser);
-      setCheckingAuth(false);
+        console.log("Auth state changed:", currentUser);
+        setUser(currentUser);
+        setCheckingAuth(false);
     });
     return unsubscribe;
   }, []);
 
   useEffect(() => {
-  if (!checkingAuth) {
-    if (user === null) {
-      router.replace("/(auth)/login");
-    } else {
-      router.replace("/(tabs)");
+    if (!checkingAuth) {
+      if (user === null) {
+        router.replace("/(auth)/login");
+      } else {
+        router.replace("/(tabs)");
+      }
     }
-  }
-}, [checkingAuth, user]);
+  }, [checkingAuth, user]);
 
   if (!loaded && !error) {
     return null;
   }
 
-  if (checkingAuth) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "blue" }}>
-        <ActivityIndicator size="large" color="#000000" />
-      </View>
-    );
-  }
-
   return (
-  <Stack>
-    <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-    <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-  </Stack>
-);
+    <>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+      </Stack>
+      {checkingAuth && (
+        <View>
+          <ActivityIndicator size="large" color="#ffffff" />
+        </View>
+      )}
+      <StatusBar style='dark' />
+    </>
+  );
 }

@@ -1,9 +1,13 @@
-import { Stack } from "expo-router";
+import { NativeTabs } from "expo-router/unstable-native-tabs";
 
 export default function TabsLayout() {
     return (
-    <Stack>
-    <Stack.Screen name="Home" options={{title: "Home", headerShown: false}}/>
-    </Stack>
+        <NativeTabs>
+            <NativeTabs.Trigger name="index">
+                <NativeTabs.Trigger.Label>Mail</NativeTabs.Trigger.Label>
+                <NativeTabs.Trigger.Icon sf="house.fill" md="home" />
+            </NativeTabs.Trigger>
+        </NativeTabs>
     )
+
 }
