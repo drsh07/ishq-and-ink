@@ -1,8 +1,9 @@
 import { View, StyleSheet, Text, TextInput, Pressable } from "react-native";
 import { useState } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
-import { auth } from "../../../firebaseConfig"
+import { auth, db } from "../../../firebaseConfig"
 import { router, useRouter} from "expo-router";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function CreateAccountScreen() {
 
@@ -20,7 +21,8 @@ export default function CreateAccountScreen() {
             }
 
             const userCredential = await createUserWithEmailAndPassword(auth, email, passwordText);
-            const user = userCredential.user;
+            const dataRef = doc(db, "users", userCredential.user.uid)
+            await setDoc(dataRef, {partnerId: null});
         }
         catch (error) {
             console.log(error);

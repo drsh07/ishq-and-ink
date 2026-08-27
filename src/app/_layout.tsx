@@ -4,11 +4,12 @@ import { Playfair_400Regular } from '@expo-google-fonts/playfair'
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "../../firebaseConfig";
+import { auth, db } from "../../firebaseConfig";
 import { View, ActivityIndicator, Text, StyleSheet } from "react-native";
 import { router } from 'expo-router';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { doc, getDoc } from 'firebase/firestore';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -41,12 +42,27 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
-    if (!checkingAuth) {
+
+    async function handleRouting() {
       if (user === null) {
         router.replace("/(auth)/login");
-      } else {
-        router.replace("/(tabs)");
+      } 
+      else {
+       const docSnap = await getDoc(doc(db, "users", user.uid));
+        if (docSnap.exists()) {
+          if (docSnap.data().partnerId !== null) {
+            router.replace("/(tabs)");
+          }
+          else {
+            router.replace("/(pairing)/startPairing");
+          }
+        }
+        
       }
+    }
+
+    if (!checkingAuth) {
+      handleRouting();
     }
   }, [checkingAuth, user]);
 
@@ -59,6 +75,7 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        <Stack.Screen name="(pairing)" options={{ headerShown: false }} />
       </Stack>
       {checkingAuth && (
         <View>
