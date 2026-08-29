@@ -6,6 +6,7 @@ export default function PairingLayout() {
         <Stack>
             <Stack.Screen name='startPairing' options={{headerShown: false}} />
             <Stack.Screen name='pair' options={{headerShown: false}} />
+            <Stack.Screen name='complete' options={{headerShown: false}} />
         </Stack>
     )
 
