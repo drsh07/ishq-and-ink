@@ -1,15 +1,25 @@
 import { router } from 'expo-router';
 import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
-import { auth } from '../../../firebaseConfig';
+import { auth, db } from '../../../firebaseConfig';
 import { CameraView, Camera } from 'expo-camera';
-import { doc, getDoc, onSnapshot } from 'firebase/firestore'; 
-import { useState, useEffect, use } from 'react'
+import { doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { useState, useEffect, } from 'react'
 
 export default function PairScreen() {
 
     const [statusText, setStatusText] = useState("Waiting for Partner...");
     const [scannedId, setScannedId] = useState("");
+
+    useEffect(() => {
+
+        const unsubscribe = onSnapshot(doc(db, "users", auth.currentUser!.uid), (snap) => {
+            if (snap.data()!.partnerId !== null) {
+                setStatusText("Successfully paired!");
+            }
+        });
+        return unsubscribe;
+    }, []);
 
     const handleScanner = async () => {
         try {
@@ -17,7 +27,7 @@ export default function PairScreen() {
                 setScannedId(result.data);
                 CameraView.dismissScanner();
             });
-            await CameraView.launchScanner({barcodeTypes: ['qr']});
+            await CameraView.launchScanner({ barcodeTypes: ['qr'] });
         }
         catch (error) {
             console.log(error)
