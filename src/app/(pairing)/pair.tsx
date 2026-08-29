@@ -1,21 +1,37 @@
-import { Text, View, StyleSheet, Pressable, ActivityIndicatorBase } from 'react-native';
-import { Playfair_400Regular } from '@expo-google-fonts/playfair';
-import { auth } from '../../../firebaseConfig';
-import { signOut } from 'firebase/auth';
 import { router } from 'expo-router';
+import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
-import { ActivityIndicator } from 'react-native';
+import { auth } from '../../../firebaseConfig';
+import { CameraView, Camera } from 'expo-camera';
+import { doc, getDoc, onSnapshot } from 'firebase/firestore'; 
+import { useState, useEffect, use } from 'react'
 
 export default function PairScreen() {
 
-    const handleSignOut = async () => {
+    const [statusText, setStatusText] = useState("Waiting for Partner...");
+    const [scannedId, setScannedId] = useState("");
+
+    const handleScanner = async () => {
         try {
-            await signOut(auth);
+            CameraView.onModernBarcodeScanned((result) => {
+                setScannedId(result.data);
+                CameraView.dismissScanner();
+            });
+            await CameraView.launchScanner({barcodeTypes: ['qr']});
         }
         catch (error) {
-            console.log(error);
+            console.log(error)
         }
+
     }
+
+    const attemptPairing = (scannedId) => {
+
+        
+
+    }
+
+
 
     return (
         <>
@@ -30,12 +46,12 @@ export default function PairScreen() {
                 />
                 <View style={{ flexDirection: 'row', marginTop: 40 }}>
                     <ActivityIndicator></ActivityIndicator>
-                    <Text>   Waiting for partner...</Text>
+                    <Text>   {statusText}</Text>
                 </View>
                 <Text style={styles.subText}>Or scan your partner's</Text>
                 <View style={{ flexDirection: 'row' }}>
-                    <Pressable onPress={() => router.replace("/pair")}>
-                        <Text style={styles.button}>Continue</Text>
+                    <Pressable onPress={handleScanner}>
+                        <Text style={styles.button}>Scan QR Code</Text>
                     </Pressable>
                 </View>
             </View>
