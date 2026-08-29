@@ -8,6 +8,7 @@ import { doc, setDoc } from "firebase/firestore";
 export default function CreateAccountScreen() {
 
     const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
     const [passwordText, setPasswordText] = useState("");
     const [confirmPasswordText, setConfirmPasswordText] = useState("");
 
@@ -22,7 +23,7 @@ export default function CreateAccountScreen() {
 
             const userCredential = await createUserWithEmailAndPassword(auth, email, passwordText);
             const dataRef = doc(db, "users", userCredential.user.uid)
-            await setDoc(dataRef, {partnerId: null});
+            await setDoc(dataRef, {partnerId: null, name: name});
         }
         catch (error) {
             console.log(error);
@@ -33,6 +34,12 @@ export default function CreateAccountScreen() {
         <View style={styles.container}>
             <Text style={styles.appHeader}>Ishq & Ink</Text>
             <TextInput 
+            value={name}
+            placeholder="Full name"
+            onChangeText={setName}
+            placeholderTextColor={"#797575"}
+            style={styles.textField}
+            /><TextInput 
             value={email}
             placeholder="Email"
             onChangeText={setEmail}
