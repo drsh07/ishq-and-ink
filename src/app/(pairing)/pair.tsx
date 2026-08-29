@@ -3,7 +3,7 @@ import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-nati
 import QRCode from 'react-native-qrcode-svg';
 import { auth, db } from '../../../firebaseConfig';
 import { CameraView, Camera } from 'expo-camera';
-import { doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
 import { useState, useEffect, } from 'react'
 
 export default function PairScreen() {
@@ -15,7 +15,12 @@ export default function PairScreen() {
 
         const unsubscribe = onSnapshot(doc(db, "users", auth.currentUser!.uid), (snap) => {
             if (snap.data()!.partnerId !== null) {
-                setStatusText("Successfully paired!");
+
+                fetchPartnerName(snap.data()!.partnerId).then((partnerName) => {
+                    setStatusText("Linked to " + partnerName);
+                    setTimeout(() => {}, 2000);
+                    router.replace("/complete");
+                });
             }
         });
         return unsubscribe;
@@ -24,7 +29,8 @@ export default function PairScreen() {
     const handleScanner = async () => {
         try {
             CameraView.onModernBarcodeScanned((result) => {
-                setScannedId(result.data);
+                attemptPairing(result.data);
+                setScannedId(result.data)
                 CameraView.dismissScanner();
             });
             await CameraView.launchScanner({ barcodeTypes: ['qr'] });
@@ -32,12 +38,59 @@ export default function PairScreen() {
         catch (error) {
             console.log(error)
         }
-
     }
 
-    const attemptPairing = (scannedId) => {
+    const fetchPartnerName = async (partner: string) => {
+        const docSnap = await getDoc(doc(db, "users", partner));
 
-        
+        if (docSnap.exists()) {
+            return docSnap.data().name;
+        }
+    }
+
+    const attemptPairing = async (scannedId: string) => {
+
+        setStatusText("Validating pairing...");
+
+        const ownDocSnap = await getDoc(doc(db, "users", auth.currentUser!.uid));
+        const scannedDocSnap = await getDoc(doc(db, "users", scannedId));
+
+        if (ownDocSnap.exists()) {
+            if (ownDocSnap.data().partnerId !== null) {
+                alert("You are already paired to someone. How did you get here?");
+                return;
+            }
+        }
+        else {
+            alert("Somehow you dont exist.")
+            return;
+        }
+
+        if (scannedDocSnap.exists()) {
+            if (scannedDocSnap.data().partnerId !== null) {
+                alert("You are already paired to someone. How did you get here?");
+                return;
+            }
+        }
+        else {
+            alert("Invalid QR code: User not found")
+            return;
+        }
+
+        setStatusText("Linking...");
+
+        await updateDoc(doc(db, "users", auth.currentUser!.uid), {
+            partnerId: scannedId,
+        })
+
+        await updateDoc(doc(db, "users", scannedId), {
+            partnerId: auth.currentUser!.uid,
+        })
+
+        setStatusText("Linked to " + scannedDocSnap.data().name);
+        setTimeout(() => {}, 2000);
+        router.replace("/complete");
+
 
     }
 
