@@ -1,8 +1,7 @@
-import { Text, View, StyleSheet, Pressable } from 'react-native';
-import { Playfair_400Regular } from '@expo-google-fonts/playfair';
-import { auth } from '../../../firebaseConfig';
 import { signOut } from 'firebase/auth';
-import {  }
+import { BackHandler, Pressable, StyleSheet, Text, View } from 'react-native';
+import { auth } from '../../../firebaseConfig';
+import { router } from 'expo-router';
 
 export default function StartPairingScreen() {
 
@@ -16,19 +15,20 @@ export default function StartPairingScreen() {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.mainText}>You aren't linked to your partner yet</Text>
-            <Text style={styles.subText}>Let's get you together</Text>
-            <View style={{flexDirection: 'row'}}>
-            <Pressable onPress={handleSignOut}>
-                <Text style={styles.button}>Log out</Text>
+        <>
+            <Pressable onPress={handleSignOut} style={{ position: 'absolute', top: 700, left: 20 }}>
+                <Text style={styles.button}>Log Out</Text>
             </Pressable>
-            <Pressable onPress={handleSignOut}>
-                <Text style={styles.button}>Continue</Text>
-            </Pressable>
+            <View style={styles.container}>
+                <Text style={styles.mainText}>You aren't linked to your partner yet</Text>
+                <Text style={styles.subText}>Let's get you together</Text>
+                <View style={{ flexDirection: 'row' }}>
+                    <Pressable onPress={() => router.push("/pair")}>
+                        <Text style={styles.button}>Continue</Text>
+                    </Pressable>
+                </View>
             </View>
-        </View>
-
+        </>
     )
 
 }
@@ -63,6 +63,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#ce9ee8",
         marginTop: 50,
         marginBottom: 10,
-    }
+    },
 
 })
