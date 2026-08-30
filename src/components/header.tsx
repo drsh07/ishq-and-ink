@@ -1,5 +1,5 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
-import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons'
+import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 
 export default function Header() {
     return (
@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
       alignItems: "center",
       justifyContent: "space-between",
       backgroundColor: "#281b33",
-      padding: 25,
     },
 
     headerText: {
