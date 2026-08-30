@@ -82,7 +82,7 @@ export default function RootLayout() {
           <ActivityIndicator size="large" color="#ffffff" />
         </View>
       )}
-      <StatusBar style='dark' />
+      <StatusBar style='light' />
     </>
   );
 }

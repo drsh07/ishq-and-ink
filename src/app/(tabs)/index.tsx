@@ -14,7 +14,7 @@ export default function Index() {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <Pressable onPress={handleSignOut}>
         <Text style={styles.button}>Log out</Text>
       </Pressable>
@@ -24,6 +24,13 @@ export default function Index() {
 };
 
 const styles = StyleSheet.create({
+
+  container: {
+    backgroundColor: "#281b33",
+    flex: 1,
+
+  },
+
   button: {
         borderColor: "black",
         borderWidth: 1,
