@@ -1,7 +1,10 @@
 import { NativeTabs } from "expo-router/unstable-native-tabs";
+import  Header  from '@/components/header';
 
 export default function TabsLayout() {
     return (
+        <>
+        <Header />
         <NativeTabs
             tintColor="#ce9ee8"
             backgroundColor="#34254c"
@@ -20,6 +23,7 @@ export default function TabsLayout() {
                     md={{ default: 'home', selected: 'home_filled' }} />
             </NativeTabs.Trigger>
         </NativeTabs>
+        </>
     )
 
 }

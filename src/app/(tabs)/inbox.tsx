@@ -1,7 +1,6 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../firebaseConfig";
-import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons'
 
 export default function Index() {
 
@@ -16,7 +15,9 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-     
+      <Pressable onPress={handleSignOut}>
+        <Text style={styles.button}>Log out</Text>
+      </Pressable>
     </View>
   )
 
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#281b33",
     flex: 1,
-    padding: 25,
+
   },
 
   button: {
@@ -38,17 +39,5 @@ const styles = StyleSheet.create({
         backgroundColor: "#ce9ee8",
         marginTop: 50,
         marginBottom: 10,
-    },
-
-    header: {
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
-    },
-
-    headerText: {
-        fontSize: 40,
-        fontFamily: "Birthstone_400Regular",
-        color: "white",
-    },
+    }
 })
