@@ -1,7 +1,8 @@
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import { View, Text, Pressable, StyleSheet, TextInput } from "react-native";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../firebaseConfig";
-import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons'
+import  Header  from '@/components/header';
+import Toolbar from "@/components/toolbar";
 
 export default function Index() {
 
@@ -16,7 +17,17 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-     
+        <Header />
+     <Text style={{fontFamily: "Playfair_400Regular", color: "white", fontSize: 30}}>Write</Text>
+     <Text style={styles.rules}>Minimum 200 words</Text>
+     <Text style={styles.rules}>Once you send, you cannot view, edit, or delete your letter.</Text>
+     <TextInput
+      style={styles.letterField}
+      multiline={true}
+      submitBehavior="newline"
+      placeholder="Start typing here..."
+      />
+      <Toolbar />
     </View>
   )
 
@@ -28,6 +39,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#281b33",
     flex: 1,
     padding: 25,
+    justifyContent: "space-evenly"
   },
 
   button: {
@@ -40,15 +52,19 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
 
-    header: {
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
+    rules: {
+      fontFamily: "Inter_300Light",
+      fontSize: 12,
+      color: "white"
     },
 
-    headerText: {
-        fontSize: 40,
-        fontFamily: "Birthstone_400Regular",
-        color: "white",
-    },
+    letterField: {
+      marginTop: 20,
+      backgroundColor: "#443450",
+      borderRadius: 10,
+      flex: 1,
+      padding: 20,
+      textAlignVertical: "top"
+
+    }
 })
