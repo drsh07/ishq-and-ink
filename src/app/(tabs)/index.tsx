@@ -3,6 +3,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../../firebaseConfig";
 import  Header  from '@/components/header';
 import Toolbar from "@/components/toolbar";
+import { useState } from 'react';
 
 export default function Index() {
 
@@ -14,6 +15,9 @@ export default function Index() {
       console.log(error);
     }
   }
+
+  const [text, setText] = useState("");
+  const wordCount = text.trim().length === 0 ? 0 : text.trim().split(/\s+/).length;
 
   return (
     <View style={styles.container}>
@@ -32,9 +36,11 @@ export default function Index() {
       multiline={true}
       submitBehavior="newline"
       placeholder="Start typing here..."
+      value={text}
+      onChangeText={setText}
       />
       </ScrollView>
-      <Toolbar />
+      <Toolbar count={wordCount}/>
       </KeyboardAvoidingView>
     </View>
   )
@@ -71,7 +77,8 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       flex: 1,
       padding: 20,
-      textAlignVertical: "top"
+      textAlignVertical: "top",
+      color: "white",
 
     }
 })

@@ -1,10 +1,11 @@
 import { Text, View, Pressable, StyleSheet } from 'react-native';
 import ToolbarButton from './ToolbarButton';
-import { useState } from 'react';
 
-export default function Toolbar() {
+type Props = {
+    count : number
+}
 
-    const [count, setCount] = useState(0)
+export default function Toolbar({count} : Props) {
 
     return (
         <View style={styles.container}>
