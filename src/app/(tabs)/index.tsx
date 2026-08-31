@@ -1,4 +1,4 @@
-import { View, Text, Pressable, StyleSheet, TextInput } from "react-native";
+import { View, Text, Pressable, StyleSheet, TextInput, KeyboardAvoidingView, ScrollView } from "react-native";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../firebaseConfig";
 import  Header  from '@/components/header';
@@ -21,13 +21,21 @@ export default function Index() {
      <Text style={{fontFamily: "Playfair_400Regular", color: "white", fontSize: 30}}>Write</Text>
      <Text style={styles.rules}>Minimum 200 words</Text>
      <Text style={styles.rules}>Once you send, you cannot view, edit, or delete your letter.</Text>
+     <KeyboardAvoidingView
+      behavior="padding"
+      style={{flex: 1}}
+      keyboardVerticalOffset={15}
+      >
+        <ScrollView contentContainerStyle={{ flex: 1 }}>
      <TextInput
       style={styles.letterField}
       multiline={true}
       submitBehavior="newline"
       placeholder="Start typing here..."
       />
+      </ScrollView>
       <Toolbar />
+      </KeyboardAvoidingView>
     </View>
   )
 
@@ -39,7 +47,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#281b33",
     flex: 1,
     padding: 25,
-    justifyContent: "space-evenly"
   },
 
   button: {
