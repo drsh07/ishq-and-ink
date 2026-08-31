@@ -1,20 +1,32 @@
-import {Text, View, Pressable, StyleSheet} from 'react-native';
+import { Text, View, Pressable, StyleSheet } from 'react-native';
 import ToolbarButton from './ToolbarButton';
+import { useState } from 'react';
 
 export default function Toolbar() {
+
+    const [count, setCount] = useState(0)
+
     return (
         <View style={styles.container}>
+            <View style={{flexDirection: "row", gap: 8}}>
             <ToolbarButton
-             text='Tab' 
-             backgroundColor='#ce9ee8'
-             icon='format-indent-increase'
-             />
-            <Text style={styles.count}>0 / 200</Text>
-            <ToolbarButton 
-             text='Send'
-             backgroundColor='#ce9ee8'
-             icon='send'
-             />
+                text='Tab'
+                backgroundColor='#ce9ee8'
+                icon='format-indent-increase'
+            />
+            <ToolbarButton
+                text='Clear'
+                icon='trash-can'
+                backgroundColor='#ce9ee8'
+            />
+            </View>
+            <Text style={styles.count}>{count} / 250</Text>
+            <ToolbarButton
+                text='Send'
+                backgroundColor='#ce9ee8'
+                icon='send'
+            />
+            
         </View>
     )
 }
@@ -34,7 +46,7 @@ const styles = StyleSheet.create({
     count: {
         fontFamily: "Inter_300Light",
         color: "white",
-        
+
     }
 
 })

@@ -2,7 +2,7 @@ import { Text, View, Pressable, StyleSheet } from 'react-native';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 
 type Props = {
-    text: string,
+    text?: string,
     backgroundColor?: string,
     icon?: string,
     iconColor?: string,
