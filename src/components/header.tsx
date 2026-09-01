@@ -1,11 +1,15 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 
-export default function Header() {
+type Props = {
+    profilePress: () => void
+}
+
+export default function Header({profilePress} : Props) {
     return (
     <View style={styles.header} >
         <Text style={styles.headerText}>Ishq & Ink</Text>
-        <Pressable>
+        <Pressable onPress={profilePress}>
             <MaterialDesignIcons style={{ justifyContent: "center" }} name="account-circle" size={30} color="#ffffff" />
         </Pressable>
     </View>
