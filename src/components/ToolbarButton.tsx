@@ -6,14 +6,15 @@ type Props = {
     backgroundColor?: string,
     icon?: string,
     iconColor?: string,
-    iconSize?: number
-
+    iconSize?: number,
+    onPress: () => void
+    disabled?: boolean
 }
 
-export default function ToolbarButton({text, backgroundColor = "#281b33", icon, iconColor = "#000000", iconSize = 15} : Props) {
+export default function ToolbarButton({text, backgroundColor = "#281b33", icon, iconColor = "#000000", iconSize = 15, onPress, disabled = false} : Props) {
 
     return (
-        <Pressable style={[styles.container, { backgroundColor } ]}>
+        <Pressable style={[styles.container, { backgroundColor } ]} onPress={onPress} android_ripple={{}} disabled={disabled}>
             <Text>{text}</Text>
             {icon && (
                 <MaterialDesignIcons name={icon as any} size={iconSize} color={iconColor} />

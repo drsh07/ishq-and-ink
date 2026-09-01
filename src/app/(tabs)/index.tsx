@@ -1,4 +1,4 @@
-import { View, Text, Pressable, StyleSheet, TextInput, KeyboardAvoidingView, ScrollView } from "react-native";
+import { View, Text, Pressable, StyleSheet, TextInput, KeyboardAvoidingView, ScrollView, Alert } from "react-native";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../firebaseConfig";
 import  Header  from '@/components/header';
@@ -18,6 +18,20 @@ export default function Index() {
 
   const [text, setText] = useState("");
   const wordCount = text.trim().length === 0 ? 0 : text.trim().split(/\s+/).length;
+
+  const deleteText = () => {
+    Alert.alert('Clear letter', 'Are you sure you want to delete your whole letter?', [
+      {
+        text: "Cancel",
+        style: "cancel"
+      },
+      {
+        text: "Clear",
+        style: "destructive",
+        onPress: () => {setText("")},
+      }
+    ])
+  }
 
   return (
     <View style={styles.container}>
@@ -40,7 +54,7 @@ export default function Index() {
       onChangeText={setText}
       />
       </ScrollView>
-      <Toolbar count={wordCount}/>
+      <Toolbar count={wordCount} deleteFunc={deleteText} insertTabFunc={() => setText(text + "    ")} sendFunc={() => {}} />
       </KeyboardAvoidingView>
     </View>
   )

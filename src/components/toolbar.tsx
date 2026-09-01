@@ -2,10 +2,13 @@ import { Text, View, Pressable, StyleSheet } from 'react-native';
 import ToolbarButton from './ToolbarButton';
 
 type Props = {
-    count : number
+    count : number,
+    deleteFunc: () => void,
+    insertTabFunc: () => void,
+    sendFunc: () => void,
 }
 
-export default function Toolbar({count} : Props) {
+export default function Toolbar({count, deleteFunc, insertTabFunc, sendFunc} : Props) {
 
     return (
         <View style={styles.container}>
@@ -14,11 +17,13 @@ export default function Toolbar({count} : Props) {
                 text='Tab'
                 backgroundColor='#ce9ee8'
                 icon='format-indent-increase'
+                onPress={insertTabFunc}
             />
             <ToolbarButton
                 text='Clear'
                 icon='trash-can'
                 backgroundColor='#ce9ee8'
+                onPress={deleteFunc}
             />
             </View>
             <Text style={styles.count}>{count} / 250</Text>
@@ -26,6 +31,8 @@ export default function Toolbar({count} : Props) {
                 text='Send'
                 backgroundColor='#ce9ee8'
                 icon='send'
+                onPress={sendFunc}
+                disabled={count >= 250 ? false : true }
             />
             
         </View>
