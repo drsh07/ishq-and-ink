@@ -1,9 +1,9 @@
-import { View, Text, Pressable, StyleSheet, TextInput, KeyboardAvoidingView, ScrollView, Alert } from "react-native";
+import { View, Text, Pressable, StyleSheet, TextInput, KeyboardAvoidingView, ScrollView, Alert, Keyboard } from "react-native";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../firebaseConfig";
 import  Header  from '@/components/header';
 import Toolbar from "@/components/toolbar";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Index() {
 
@@ -18,6 +18,7 @@ export default function Index() {
 
   const [text, setText] = useState("");
   const wordCount = text.trim().length === 0 ? 0 : text.trim().split(/\s+/).length;
+  const [keyboardShown, setKeyboardShown] = useState(false);
 
   const deleteText = () => {
     Alert.alert('Clear letter', 'Are you sure you want to delete your whole letter?', [
@@ -33,12 +34,28 @@ export default function Index() {
     ])
   }
 
+  useEffect(() => {
+    const show = Keyboard.addListener("keyboardDidShow", () => {
+      setKeyboardShown(true);
+    });
+     const hide = Keyboard.addListener("keyboardDidHide", () => {
+      setKeyboardShown(false);
+    });
+    return () => {
+      show.remove();
+      hide.remove();
+    }
+  }, [])
+
   return (
     <View style={styles.container}>
-        <Header />
+      {!keyboardShown && (
+        <>
+       <Header />
      <Text style={{fontFamily: "Playfair_400Regular", color: "white", fontSize: 30}}>Write</Text>
      <Text style={styles.rules}>Minimum 200 words</Text>
      <Text style={styles.rules}>Once you send, you cannot view, edit, or delete your letter.</Text>
+      </>)}
      <KeyboardAvoidingView
       behavior="padding"
       style={{flex: 1}}
