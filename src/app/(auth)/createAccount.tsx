@@ -1,9 +1,10 @@
-import { View, StyleSheet, Text, TextInput, Pressable } from "react-native";
+import { View, StyleSheet, Text, TextInput, KeyboardAvoidingView, ScrollView } from "react-native";
 import { useState } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
 import { auth, db } from "../../../firebaseConfig"
-import { router, useRouter} from "expo-router";
+import { router, useRouter } from "expo-router";
 import { doc, setDoc } from "firebase/firestore";
+import ToolbarButton from "@/components/ToolbarButton";
 
 export default function CreateAccountScreen() {
 
@@ -18,53 +19,65 @@ export default function CreateAccountScreen() {
 
             if (passwordText !== confirmPasswordText) {
                 alert("Passwords do not match!");
-                throw("Passwords do not match");
+                throw ("Passwords do not match");
             }
 
             const userCredential = await createUserWithEmailAndPassword(auth, email, passwordText);
             const dataRef = doc(db, "users", userCredential.user.uid)
-            await setDoc(dataRef, {partnerId: null, name: name});
+            await setDoc(dataRef, { partnerId: null, name: name });
         }
         catch (error) {
             console.log(error);
         }
     }
+    
+    /*"V59Co0G8UqaQzK6zEC47jTTHYgA3" */
 
     return (
         <View style={styles.container}>
-            <Text style={styles.appHeader}>Ishq & Ink</Text>
-            <TextInput 
-            value={name}
-            placeholder="Full name"
-            onChangeText={setName}
-            placeholderTextColor={"#797575"}
-            style={styles.textField}
-            /><TextInput 
-            value={email}
-            placeholder="Email"
-            onChangeText={setEmail}
-            placeholderTextColor={"#797575"}
-            style={styles.textField}
-            />
-            <TextInput 
-            value={passwordText}
-            placeholder="Password"
-            onChangeText={setPasswordText}
-            placeholderTextColor={"#797575"}
-            style={styles.textField}
-            secureTextEntry={true}
-            />
-            <TextInput 
-            value={confirmPasswordText}
-            placeholder="Confirm password"
-            onChangeText={setConfirmPasswordText}
-            placeholderTextColor={"#797575"}
-            style={styles.textField}
-            secureTextEntry={true}
-            />
-            <Pressable onPress={handelAccountCreation}>
-                <Text style={styles.button}>Create Account</Text>
-            </Pressable>
+                <KeyboardAvoidingView
+                style={{width: "100%"}}
+                behavior="padding"
+                 >
+            <ScrollView contentContainerStyle={{alignItems: "center", paddingTop: 50}}>
+                <Text style={styles.appHeader}>Ishq & Ink</Text>
+                <TextInput
+                    value={name}
+                    placeholder="Full name"
+                    onChangeText={setName}
+                    placeholderTextColor={"#797575"}
+                    style={styles.textField}
+                /><TextInput
+                    value={email}
+                    placeholder="Email"
+                    onChangeText={setEmail}
+                    placeholderTextColor={"#797575"}
+                    style={styles.textField}
+                />
+                <TextInput
+                    value={passwordText}
+                    placeholder="Password"
+                    onChangeText={setPasswordText}
+                    placeholderTextColor={"#797575"}
+                    style={styles.textField}
+                    secureTextEntry={true}
+                />
+                <TextInput
+                    value={confirmPasswordText}
+                    placeholder="Confirm password"
+                    onChangeText={setConfirmPasswordText}
+                    placeholderTextColor={"#797575"}
+                    style={styles.textField}
+                    secureTextEntry={true}
+                />
+                <View style={{
+                    marginTop: 50,
+                    marginBottom: 10,
+                }}>
+                    <ToolbarButton text="Create Account" backgroundColor="#ce9ee8" onPress={handelAccountCreation} />
+                </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
         </View>
     )
 }
@@ -76,32 +89,24 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
         alignItems: 'center',
         padding: 25,
+        backgroundColor: "#281b33"
     },
 
     appHeader: {
         fontSize: 80,
         fontFamily: "Birthstone_400Regular",
-        marginTop: 125,
+        color: "white"
     },
 
     textField: {
-        borderColor: "black",
-        borderWidth: 1,
-        width: "100%",
-        borderRadius: 15,
-        padding: 10,
         marginTop: 7,
-        color: "black",
-    },
+        backgroundColor: "#443450",
+        borderRadius: 10,
+        padding: 20,
+        color: "white",
+        width: '100%'
 
-    button: {
-        borderColor: "black",
-        borderWidth: 1,
-        borderRadius: 15,
-        padding: 10,
-        backgroundColor: "#ce9ee8",
-        marginTop: 50
-    }
+    },
 
 })
 
