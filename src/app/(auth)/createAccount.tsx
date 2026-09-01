@@ -31,7 +31,6 @@ export default function CreateAccountScreen() {
         }
     }
     
-    /*"V59Co0G8UqaQzK6zEC47jTTHYgA3" */
 
     return (
         <View style={styles.container}>

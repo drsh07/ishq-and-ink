@@ -4,6 +4,7 @@ import { auth, db } from '../../../firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore'
 import { router } from 'expo-router';
 import { useState, useEffect } from 'react';
+import ToolbarButton from '@/components/ToolbarButton';
 
 export default function StartPairingScreen() {
 
@@ -31,9 +32,9 @@ export default function StartPairingScreen() {
             <Text style={styles.mainText}>You're now linked!</Text>
             <Text style={styles.subText}>You are linked to {name} forever. No running away.</Text>
             <View style={{ flexDirection: 'row' }}>
-                <Pressable onPress={() => router.replace("/(tabs)")}>
-                    <Text style={styles.button}>Continue</Text>
-                </Pressable>
+                <View style={{ marginTop: 50 }}>
+                    <ToolbarButton text='Continue' backgroundColor="#ce9ee8" onPress={() => { router.replace("/(tabs)") }} icon='arrow-right' />
+                </View>
             </View>
         </View>
     )
@@ -47,12 +48,14 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: 'center',
         padding: 25,
+        backgroundColor: "#281b33",
     },
 
     mainText: {
         fontSize: 40,
         fontFamily: "Playfair_400Regular",
         textAlign: "center",
+        color: "white"
     },
 
     subText: {
@@ -60,6 +63,7 @@ const styles = StyleSheet.create({
         fontFamily: "Playfair_400Regular",
         textAlign: "center",
         marginTop: 20,
+        color: "white"
     },
 
     button: {

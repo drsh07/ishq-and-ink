@@ -2,6 +2,7 @@ import { signOut } from 'firebase/auth';
 import { BackHandler, Pressable, StyleSheet, Text, View } from 'react-native';
 import { auth } from '../../../firebaseConfig';
 import { router } from 'expo-router';
+import ToolbarButton from '@/components/ToolbarButton';
 
 export default function StartPairingScreen() {
 
@@ -15,20 +16,16 @@ export default function StartPairingScreen() {
     }
 
     return (
-        <>
-            <Pressable onPress={handleSignOut} style={{ position: 'absolute', top: 700, left: 20 }}>
-                <Text style={styles.button}>Log Out</Text>
-            </Pressable>
             <View style={styles.container}>
+                <View style={{ position: 'absolute', top: 700, left: 20 }}>
+                <ToolbarButton text='Log out' backgroundColor="#ce9ee8" onPress={handleSignOut} icon='logout' />
+            </View>
                 <Text style={styles.mainText}>You aren't linked to your partner yet</Text>
                 <Text style={styles.subText}>Let's get you together</Text>
-                <View style={{ flexDirection: 'row' }}>
-                    <Pressable onPress={() => router.push("/pair")}>
-                        <Text style={styles.button}>Continue</Text>
-                    </Pressable>
+                <View style={{ marginTop: 50}}>
+                    <ToolbarButton text='Continue' backgroundColor="#ce9ee8" onPress={() => {router.push("/pair")}} icon='arrow-right' />
                 </View>
             </View>
-        </>
     )
 
 }
@@ -40,12 +37,15 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: 'center',
         padding: 25,
+        backgroundColor: "#281b33",
+
     },
 
     mainText: {
         fontSize: 40,
         fontFamily: "Playfair_400Regular",
         textAlign: "center",
+        color: "white",
     },
 
     subText: {
@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
         fontFamily: "Playfair_400Regular",
         textAlign: "center",
         marginTop: 20,
+        color: "white",
     },
 
     button: {

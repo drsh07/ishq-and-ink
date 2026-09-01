@@ -4,7 +4,8 @@ import QRCode from 'react-native-qrcode-svg';
 import { auth, db } from '../../../firebaseConfig';
 import { CameraView, Camera } from 'expo-camera';
 import { doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
-import { useState, useEffect, } from 'react'
+import { useState, useEffect, } from 'react';
+import ToolbarButton from '@/components/ToolbarButton';
 
 export default function PairScreen() {
 
@@ -18,7 +19,7 @@ export default function PairScreen() {
 
                 fetchPartnerName(snap.data()!.partnerId).then((partnerName) => {
                     setStatusText("Linked to " + partnerName);
-                    setTimeout(() => {}, 2000);
+                    setTimeout(() => { }, 2000);
                     router.replace("/complete");
                 });
             }
@@ -88,37 +89,32 @@ export default function PairScreen() {
         })
 
         setStatusText("Linked to " + scannedDocSnap.data().name);
-        setTimeout(() => {}, 2000);
+        setTimeout(() => { }, 2000);
         router.replace("/complete");
 
 
     }
 
 
-
     return (
-        <>
-            <Pressable onPress={() => router.back()} style={{ position: 'absolute', top: 700, left: 20 }}>
-                <Text style={styles.button}>Back</Text>
-            </Pressable>
-            <View style={styles.container}>
-                <Text style={[styles.mainText, { marginBottom: 20 }]}>Your QR code:</Text>
-                <QRCode
-                    value={auth.currentUser?.uid}
-                    size={200}
-                />
-                <View style={{ flexDirection: 'row', marginTop: 40 }}>
-                    <ActivityIndicator></ActivityIndicator>
-                    <Text>   {statusText}</Text>
-                </View>
-                <Text style={styles.subText}>Or scan your partner's</Text>
-                <View style={{ flexDirection: 'row' }}>
-                    <Pressable onPress={handleScanner}>
-                        <Text style={styles.button}>Scan QR Code</Text>
-                    </Pressable>
-                </View>
+        <View style={styles.container}>
+            <View style={{ position: 'absolute', top: 700, left: 20 }}>
+                <ToolbarButton text='Back' backgroundColor="#ce9ee8" onPress={() => router.back()} icon='arrow-left' />
             </View>
-        </>
+            <Text style={[styles.mainText, { marginBottom: 20 }]}>Your QR code:</Text>
+            <QRCode
+                value={auth.currentUser?.uid}
+                size={200}
+            />
+            <View style={{ flexDirection: 'row', marginTop: 40 }}>
+                <ActivityIndicator></ActivityIndicator>
+                <Text style={{ color: "white" }}>   {statusText}</Text>
+            </View>
+            <Text style={styles.subText}>Or scan your partner's</Text>
+            <View style={{ marginTop: 30 }}>
+                <ToolbarButton text='Scan QR Code' backgroundColor="#ce9ee8" onPress={handleScanner} icon='camera' />
+            </View>
+        </View>
     )
 
 }
@@ -130,12 +126,14 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: 'center',
         padding: 25,
+        backgroundColor: "#281b33",
     },
 
     mainText: {
         fontSize: 40,
         fontFamily: "Playfair_400Regular",
         textAlign: "center",
+        color: "white"
     },
 
     subText: {
@@ -143,6 +141,7 @@ const styles = StyleSheet.create({
         fontFamily: "Playfair_400Regular",
         textAlign: "center",
         marginTop: 20,
+        color: "white"
     },
 
     button: {
