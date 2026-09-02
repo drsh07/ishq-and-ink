@@ -10,14 +10,14 @@ export default function TabsLayout() {
             <NativeTabs.Trigger name="index">
                 <NativeTabs.Trigger.Label>Mail</NativeTabs.Trigger.Label>
                 <NativeTabs.Trigger.Icon
-                    sf={{ default: 'plus', selected: 'house.fill' }}
-                    md={{ default: 'home', selected: 'home_filled' }} />
+                    sf={{ default: 'pencil.circle', selected: 'pencil.circle.fill' }}
+                    md={{ default: 'edit', selected: 'edit' }} />
             </NativeTabs.Trigger>
             <NativeTabs.Trigger name="inbox">
                 <NativeTabs.Trigger.Label>Mail</NativeTabs.Trigger.Label>
                 <NativeTabs.Trigger.Icon
-                    sf={{ default: 'house', selected: 'house.fill' }}
-                    md={{ default: 'home', selected: 'home_filled' }} />
+                    sf={{ default: 'tray', selected: 'tray.fill' }}
+                    md={{ default: 'mail', selected: 'mail' }} />
             </NativeTabs.Trigger>
         </NativeTabs>
     )
