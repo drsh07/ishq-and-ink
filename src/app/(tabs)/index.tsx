@@ -119,16 +119,6 @@ const styles = StyleSheet.create({
     padding: 25,
   },
 
-  button: {
-        borderColor: "black",
-        borderWidth: 1,
-        borderRadius: 15,
-        padding: 10,
-        backgroundColor: "#ce9ee8",
-        marginTop: 50,
-        marginBottom: 10,
-    },
-
     rules: {
       fontFamily: "Inter_300Light",
       fontSize: 12,
@@ -138,7 +128,7 @@ const styles = StyleSheet.create({
     letterField: {
       marginTop: 20,
       backgroundColor: "#443450",
-      borderRadius: 10,
+      borderRadius: 20,
       flex: 1,
       padding: 20,
       textAlignVertical: "top",
