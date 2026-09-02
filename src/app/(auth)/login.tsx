@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     textField: {
         marginTop: 7,
         backgroundColor: "#443450",
-        borderRadius: 10,
+        borderRadius: 40,
         padding: 20,
         color: "white",
         width: '100%'
