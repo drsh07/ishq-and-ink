@@ -1,20 +1,12 @@
 import { View, Text, Pressable, StyleSheet, TextInput, KeyboardAvoidingView, ScrollView, Alert, Keyboard } from "react-native";
 import { signOut } from "firebase/auth";
-import { auth } from "../../../firebaseConfig";
+import { auth, db } from "../../../firebaseConfig";
 import  Header  from '@/components/header';
 import Toolbar from "@/components/toolbar";
 import { useEffect, useState } from 'react';
+import { addDoc, collection, getDoc, doc, serverTimestamp } from "firebase/firestore";
 
 export default function Index() {
-
-  const handleSignOut = async () => {
-    try {
-      await signOut(auth);
-    }
-    catch (error) {
-      console.log(error);
-    }
-  }
 
   const [text, setText] = useState("");
   const wordCount = text.trim().length === 0 ? 0 : text.trim().split(/\s+/).length;
@@ -30,6 +22,47 @@ export default function Index() {
         text: "Clear",
         style: "destructive",
         onPress: () => {setText("")},
+      }
+    ])
+  }
+
+  const confirmSend = () => {
+    Alert.alert('Send letter', 'Are you sure you want to send your letter? You CANNOT read, edit, or delete it once sent.', [
+      {
+        text: "Cancel",
+        style: "cancel"
+      },
+      {
+        text: "Send",
+        style: "default",
+        onPress: () => {sendLetter()},
+      }
+    ])
+  }
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
+  const sendLetter = async () => {
+    const ownDocSnap = await getDoc(doc(db, "users", auth.currentUser!.uid));
+    await addDoc(collection(db, "letters"), {
+      content: text,
+      from: auth.currentUser?.uid,
+      to: ownDocSnap.data()?.partnerId,
+      timestamp: serverTimestamp(),
+      read: false
+    });
+    setText("");
+     Alert.alert('Success', 'Your letter has successfully been sent!', [
+      {
+        text: "OK",
+        style: "default"
       }
     ])
   }
@@ -71,7 +104,7 @@ export default function Index() {
       onChangeText={setText}
       />
       </ScrollView>
-      <Toolbar count={wordCount} deleteFunc={deleteText} insertTabFunc={() => setText(text + "    ")} sendFunc={() => {}} />
+      <Toolbar count={wordCount} deleteFunc={deleteText} insertTabFunc={() => setText(text + "    ")} sendFunc={confirmSend} />
       </KeyboardAvoidingView>
     </View>
   )
