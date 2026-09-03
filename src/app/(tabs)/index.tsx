@@ -53,7 +53,7 @@ export default function Index() {
     const ownDocSnap = await getDoc(doc(db, "users", auth.currentUser!.uid));
     await addDoc(collection(db, "letters"), {
       content: text,
-      from: auth.currentUser?.uid,
+      from: auth.currentUser!.uid,
       to: ownDocSnap.data()?.partnerId,
       timestamp: serverTimestamp(),
       read: false
