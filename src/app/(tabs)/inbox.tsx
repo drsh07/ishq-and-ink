@@ -12,6 +12,8 @@ export default function Index() {
 
   useEffect(() => {
 
+    if (!auth.currentUser) return;
+
     const letterQuery = query(collection(db, "letters"), orderBy("timestamp", "desc"), where("from", "==", auth.currentUser!.uid));
     const unsubsribe = onSnapshot(letterQuery, (lettersSnapshot) => {
       const newLetters = lettersSnapshot.docs.map((letter) => ({ id: letter.id, ...letter.data() }));
