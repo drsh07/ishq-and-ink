@@ -10,7 +10,7 @@ type Props = {
 export default function LetterCard({ text, read, id }: Props) {
 
     return (
-        <Pressable onPress={() => {router.push({pathname: "/(tabs)/read", params: {id: id}})}}>
+        <Pressable onPress={() => {router.push(`/read/${id}`)}}>
             <View style={[styles.container, {opacity: read ? 0.4 : 1 }]}>
                 <Text style={{
                     fontFamily: "Inter_300Light",
