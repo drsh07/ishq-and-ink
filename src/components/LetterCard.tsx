@@ -1,5 +1,7 @@
 import { router } from 'expo-router';
 import { View, Pressable, StyleSheet, Text } from 'react-native';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { db } from '../../firebaseConfig';
 
 type Props = {
     text: string,
@@ -10,8 +12,10 @@ type Props = {
 export default function LetterCard({ text, read, id }: Props) {
 
     return (
-        <Pressable onPress={() => {router.push(`/read/${id}`)}}>
-            <View style={[styles.container, {opacity: read ? 0.4 : 1 }]}>
+        <Pressable onPress={() => {
+            router.push(`/read/${id}`)
+        }}>
+            <View style={[styles.container, { opacity: read ? 0.4 : 1 }]}>
                 <Text style={{
                     fontFamily: "Inter_300Light",
                     color: "white"

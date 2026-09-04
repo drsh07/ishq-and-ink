@@ -4,7 +4,7 @@ import { auth, db } from "../../../firebaseConfig";
 import Header from '@/components/header';
 import Toolbar from "@/components/toolbar";
 import { useEffect, useState } from 'react';
-import { addDoc, collection, getDoc, doc, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, getDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { useLocalSearchParams, router } from "expo-router";
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import ToolbarButton from "@/components/ToolbarButton";
@@ -22,10 +22,19 @@ export default function Index() {
 
       if (docSnap.exists()) {
         setContent(docSnap.data().content);
+        setReadLetter();
       }
     }
     fetchLetterContent();
   }, [])
+
+  const setReadLetter = async () => {
+    const docSnap = doc(db, "letters", id);
+
+    await updateDoc(docSnap, {
+      read: true
+    });
+  }
 
 
   return (
@@ -35,8 +44,8 @@ export default function Index() {
         <Text style={styles.content}>
           {content}
         </Text>
-        <View style={{justifyContent: "center", width: 75}}>
-        <View style={{gap: 50}} />
+        <View style={{ justifyContent: "center", width: 75 }}>
+          <View style={{ gap: 50 }} />
           <ToolbarButton text='Back' backgroundColor="#ce9ee8" onPress={() => router.back()} icon='arrow-left' />
         </View>
       </ScrollView>

@@ -14,10 +14,13 @@ export default function Index() {
 
     if (!auth.currentUser) return;
 
-    const letterQuery = query(collection(db, "letters"), orderBy("timestamp", "desc"), where("from", "==", auth.currentUser!.uid));
+    const letterQuery = query(collection(db, "letters"), orderBy("timestamp", "desc"), where("to", "==", auth.currentUser!.uid));
     const unsubsribe = onSnapshot(letterQuery, (lettersSnapshot) => {
       const newLetters = lettersSnapshot.docs.map((letter) => ({ id: letter.id, ...letter.data() }));
       setLetters(newLetters);
+      
+      const unreadCount = letters.filter((letter) => letter.read === false).length
+
     })
     return unsubsribe;
   }, []);
@@ -38,15 +41,21 @@ export default function Index() {
       <Header profilePress={handleSignOut} />
       <Text style={{ fontFamily: "Playfair_400Regular", color: "white", fontSize: 30 }}>Read</Text>
       <Text style={styles.rules}>Read your partner's letters</Text>
-      <FlatList
-        data={letters}
-        keyExtractor={(letter) => letter.id}
-        renderItem={({item}) => <LetterCard
-         text={item.timestamp ? item.timestamp.toDate().toDateString() + " at " + item.timestamp.toDate().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', hour12: true}) : "Receiving..."}
-         read={item.read}
-         id={item.id}
-         />}
-      />
+      {letters.length === 0 ? (
+        <View style={{alignItems: "center", flex: 1, justifyContent: "center"}}>
+          <Text style={{fontFamily: "Inter_300Light", color: "#919191"}}>No letters unfortunately :( </Text>
+        </View>
+      ) : (
+        <FlatList
+          data={letters}
+          keyExtractor={(letter) => letter.id}
+          renderItem={({ item }) => <LetterCard
+            text={item.timestamp ? item.timestamp.toDate().toDateString() + " at " + item.timestamp.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : "Receiving..."}
+            read={item.read}
+            id={item.id}
+          />}
+        />
+      )}
     </View>
   )
 
