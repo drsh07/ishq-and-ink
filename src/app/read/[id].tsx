@@ -5,12 +5,14 @@ import Header from '@/components/header';
 import Toolbar from "@/components/toolbar";
 import { useEffect, useState } from 'react';
 import { addDoc, collection, getDoc, doc, serverTimestamp } from "firebase/firestore";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, router } from "expo-router";
+import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
+import ToolbarButton from "@/components/ToolbarButton";
 
 export default function Index() {
 
   const { id } = useLocalSearchParams<{ id: string }>();
-  
+
   const [content, setContent] = useState("");
 
   useEffect(() => {
@@ -22,18 +24,24 @@ export default function Index() {
         setContent(docSnap.data().content);
       }
     }
-      fetchLetterContent();
+    fetchLetterContent();
   }, [])
 
 
   return (
+
     <View style={styles.container}>
-      <Text style={styles.rules}>
-        {content}
-      </Text>
+      <ScrollView>
+        <Text style={styles.content}>
+          {content}
+        </Text>
+        <View style={{justifyContent: "center", width: 75}}>
+        <View style={{gap: 50}} />
+          <ToolbarButton text='Back' backgroundColor="#ce9ee8" onPress={() => router.back()} icon='arrow-left' />
+        </View>
+      </ScrollView>
     </View>
   )
-
 };
 
 const styles = StyleSheet.create({
@@ -44,9 +52,9 @@ const styles = StyleSheet.create({
     padding: 25,
   },
 
-  rules: {
+  content: {
     fontFamily: "Inter_300Light",
-    fontSize: 12,
+    fontSize: 20,
     color: "white"
   },
 
