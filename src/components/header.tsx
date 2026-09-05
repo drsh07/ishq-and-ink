@@ -1,5 +1,6 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
+import ProfileMenu from "./ProfileMenu";
 
 type Props = {
     profilePress: () => void
@@ -12,6 +13,7 @@ export default function Header({profilePress} : Props) {
         <Pressable onPress={profilePress}>
             <MaterialDesignIcons style={{ justifyContent: "center" }} name="account-circle" size={30} color="#ffffff" />
         </Pressable>
+        <ProfileMenu />
     </View>
     )
 }
