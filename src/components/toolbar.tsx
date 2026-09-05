@@ -33,6 +33,7 @@ export default function Toolbar({count, deleteFunc, insertTabFunc, sendFunc} : P
                 icon='send'
                 onPress={sendFunc}
                 disabled={count >= 250 ? false : true }
+                iconLeft={true}
             />
             
         </View>
