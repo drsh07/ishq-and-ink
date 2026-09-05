@@ -1,19 +1,17 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
+import { useState } from 'react';
 import ProfileMenu from "./ProfileMenu";
 
-type Props = {
-    profilePress: () => void
-}
-
-export default function Header({profilePress} : Props) {
+export default function Header() {
+    const [isOpen, setIsOpen] = useState(false);
     return (
     <View style={styles.header} >
         <Text style={styles.headerText}>Ishq & Ink</Text>
-        <Pressable onPress={profilePress}>
+        <Pressable onPress={() => {setIsOpen(!isOpen)}}>
             <MaterialDesignIcons style={{ justifyContent: "center" }} name="account-circle" size={30} color="#ffffff" />
         </Pressable>
-        <ProfileMenu />
+        { isOpen && <ProfileMenu /> }
     </View>
     )
 }

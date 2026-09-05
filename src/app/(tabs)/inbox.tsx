@@ -38,7 +38,7 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <Header profilePress={handleSignOut} />
+      <Header />
       <Text style={{ fontFamily: "Playfair_400Regular", color: "white", fontSize: 30 }}>Read</Text>
       <Text style={styles.rules}>Read your partner's letters</Text>
       {letters.length === 0 ? (

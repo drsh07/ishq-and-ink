@@ -84,7 +84,7 @@ export default function Index() {
     <View style={styles.container}>
       {!keyboardShown && (
         <>
-       <Header profilePress={handleSignOut} />
+       <Header />
      <Text style={{fontFamily: "Playfair_400Regular", color: "white", fontSize: 30}}>Write</Text>
      <Text style={styles.rules}>Minimum 250 words</Text>
      <Text style={styles.rules}>Once you send, you cannot view, edit, or delete your letter.</Text>

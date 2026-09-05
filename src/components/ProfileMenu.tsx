@@ -16,9 +16,9 @@ export default function ProfileMenu() {
 
     return (
         <View style={styles.container}>
-            <ToolbarButton icon='pencil' text='Edit name' iconLeft={true} onPress={() => void} />
+            <ToolbarButton icon='pencil' text='Edit name' iconLeft={true} onPress={handleSignOut} />
             <View style={{height: 5}} />
-            <ToolbarButton icon='information' text='About' iconLeft={true} onPress={() => void} />
+            <ToolbarButton icon='information' text='About' iconLeft={true} onPress={handleSignOut} />
             <View style={{height: 5}} />
             <ToolbarButton icon='logout' text='Log out' iconLeft={true} onPress={handleSignOut} />
         </View>
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     padding: 5,
     position: "absolute",
     top: 60,
-    left: 200,
+    left: 215,
     width: 122,
     height: "auto",
     borderRadius: 20,
