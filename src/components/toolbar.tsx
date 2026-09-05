@@ -18,12 +18,14 @@ export default function Toolbar({count, deleteFunc, insertTabFunc, sendFunc} : P
                 backgroundColor='#ce9ee8'
                 icon='format-indent-increase'
                 onPress={insertTabFunc}
+                iconLeft={true}
             />
             <ToolbarButton
                 text='Clear'
                 icon='trash-can'
                 backgroundColor='#ce9ee8'
                 onPress={deleteFunc}
+                iconLeft={true}
             />
             </View>
             <Text style={styles.count}>{count} / 250</Text>
@@ -33,7 +35,7 @@ export default function Toolbar({count, deleteFunc, insertTabFunc, sendFunc} : P
                 icon='send'
                 onPress={sendFunc}
                 disabled={count >= 250 ? false : true }
-                iconLeft={true}
+                iconLeft={false}
             />
             
         </View>

@@ -46,7 +46,7 @@ export default function Index() {
         </Text>
         <View style={{ justifyContent: "center", width: 75 }}>
           <View style={{ gap: 50 }} />
-          <ToolbarButton text='Back' backgroundColor="#ce9ee8" onPress={() => router.back()} icon='arrow-left' />
+          <ToolbarButton text='Back' backgroundColor="#ce9ee8" onPress={() => router.back()} icon='arrow-left' iconLeft={true} />
         </View>
       </ScrollView>
     </View>
