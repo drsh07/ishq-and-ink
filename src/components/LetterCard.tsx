@@ -30,7 +30,7 @@ export default function LetterCard({ text, read, id }: Props) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#443450",
-        borderRadius: 10,
+        borderRadius: 20,
         flex: 1,
         flexDirection: "row",
         alignItems: "center",
