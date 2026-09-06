@@ -9,7 +9,7 @@ import { useLocalSearchParams, router } from "expo-router";
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import ToolbarButton from "@/components/ToolbarButton";
 
-export default function Index() {
+export default function ReadLetterScreen() {
 
   const { id } = useLocalSearchParams<{ id: string }>();
 
