@@ -2,6 +2,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 import ToolbarButton from './ToolbarButton';
 import { auth } from '../../firebaseConfig';
 import { signOut } from 'firebase/auth';
+import { router } from 'expo-router';
 
 export default function ProfileMenu() {
 
@@ -19,7 +20,7 @@ export default function ProfileMenu() {
         <View style={styles.container}>
             <ToolbarButton icon='pencil' text='Edit name' iconLeft={true} onPress={handleSignOut} />
             <View style={{height: 5}} />
-            <ToolbarButton icon='information' text='About' iconLeft={true} onPress={handleSignOut} />
+            <ToolbarButton icon='information' text='About' iconLeft={true} onPress={() => router.push("/other/about")} />
             <View style={{height: 5}} />
             <ToolbarButton icon='logout' text='Log out' iconLeft={true} onPress={handleSignOut} />
         </View>
