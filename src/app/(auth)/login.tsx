@@ -22,21 +22,21 @@ export default function LoginScreen() {
             console.log(error);
             setCheckingAuth(false);
 
-            
-            switch ((error as any).code  ) {
+
+            switch ((error as any).code) {
                 case "auth/invalid-email":
                     setErrorText("Please check your email address");
                     break;
-                
+
                 case "auth/wrong-password":
                 case "auth/user-not-found":
                 case "auth/invalid-credential":
                     setErrorText("Invalid email and/or password");
                     break;
-                
+
                 case "auth/user-disabled":
                     setErrorText("This user has been disabled")
-                
+
                 case "auth/too-many-requests":
                     setErrorText("Too many login attempts. Please try again in a few minutes")
             }
@@ -51,6 +51,7 @@ export default function LoginScreen() {
             >
                 <View style={{ flexGrow: 0.4 }} />
                 <Text style={styles.appHeader}>Ishq & Ink</Text>
+                <Text style={{ fontFamily: "Playfair_400Regular", color: "white", fontSize: 25, marginBottom: 40 }}>Love, Forever Inked</Text>
                 <TextInput
                     value={email}
                     placeholder="Email"
@@ -80,15 +81,15 @@ export default function LoginScreen() {
                 }}>
                     {checkingAuth ? (<>
                         <ActivityIndicator size={30} />
-                    <Text style={{
-                    color: "white",
-                    fontFamily: "Inter_300Light",
-                    marginTop: 5,
-                    textAlign: "center"
-                }}>Logging in...</Text>
-                </>) :
-                     (
-                     <ToolbarButton text="Log in" backgroundColor="#ce9ee8" onPress={handelLogin} />
+                        <Text style={{
+                            color: "white",
+                            fontFamily: "Inter_300Light",
+                            marginTop: 5,
+                            textAlign: "center"
+                        }}>Logging in...</Text>
+                    </>) :
+                        (
+                            <ToolbarButton text="Log in" backgroundColor="#ce9ee8" onPress={handelLogin} />
                         )}
                 </View>
                 <Link href={"/(auth)/createAccount"} style={{ color: "white" }}>Create Account</Link>
