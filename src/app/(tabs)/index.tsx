@@ -1,7 +1,7 @@
 import { View, Text, Pressable, StyleSheet, TextInput, KeyboardAvoidingView, ScrollView, Alert, Keyboard } from "react-native";
 import { signOut } from "firebase/auth";
 import { auth, db } from "../../../firebaseConfig";
-import  Header  from '@/components/header';
+import Header from '@/components/header';
 import Toolbar from "@/components/toolbar";
 import { useEffect, useState } from 'react';
 import { addDoc, collection, getDoc, doc, serverTimestamp } from "firebase/firestore";
@@ -21,7 +21,7 @@ export default function Index() {
       {
         text: "Clear",
         style: "destructive",
-        onPress: () => {setText("")},
+        onPress: () => { setText("") },
       }
     ])
   }
@@ -35,7 +35,7 @@ export default function Index() {
       {
         text: "Send",
         style: "default",
-        onPress: () => {sendLetter()},
+        onPress: () => { sendLetter() },
       }
     ])
   }
@@ -59,7 +59,7 @@ export default function Index() {
       read: false
     });
     setText("");
-     Alert.alert('Success', 'Your letter has successfully been sent!', [
+    Alert.alert('Success', 'Your letter has successfully been sent!', [
       {
         text: "OK",
         style: "default"
@@ -71,7 +71,7 @@ export default function Index() {
     const show = Keyboard.addListener("keyboardDidShow", () => {
       setKeyboardShown(true);
     });
-     const hide = Keyboard.addListener("keyboardDidHide", () => {
+    const hide = Keyboard.addListener("keyboardDidHide", () => {
       setKeyboardShown(false);
     });
     return () => {
@@ -84,27 +84,29 @@ export default function Index() {
     <View style={styles.container}>
       {!keyboardShown && (
         <>
-       <Header />
-     <Text style={{fontFamily: "Playfair_400Regular", color: "white", fontSize: 30}}>Write</Text>
-     <Text style={styles.rules}>Minimum 250 words</Text>
-     <Text style={styles.rules}>Once you send, you cannot view, edit, or delete your letter.</Text>
-      </>)}
-     <KeyboardAvoidingView
-      behavior="padding"
-      style={{flex: 1}}
-      keyboardVerticalOffset={15}
+          <Header />
+          <Text style={{ fontFamily: "Playfair_400Regular", color: "white", fontSize: 30 }}>Write</Text>
+          <Text style={styles.rules}>Minimum 250 words</Text>
+          <Text style={styles.rules}>Once you send, you cannot view, edit, or delete your letter.</Text>
+        </>)}
+      <KeyboardAvoidingView
+        behavior="padding"
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={15}
       >
         <ScrollView contentContainerStyle={{ flex: 1 }}>
-     <TextInput
-      style={styles.letterField}
-      multiline={true}
-      submitBehavior="newline"
-      placeholder="Start typing here..."
-      value={text}
-      onChangeText={setText}
-      />
-      </ScrollView>
-      <Toolbar count={wordCount} deleteFunc={deleteText} insertTabFunc={() => setText(text + "    ")} sendFunc={confirmSend} />
+          <TextInput
+            style={styles.letterField}
+            multiline={true}
+            submitBehavior="newline"
+            placeholder="Start typing here..."
+            value={text}
+            onChangeText={setText}
+            placeholderTextColor={"#797575"}
+
+          />
+        </ScrollView>
+        <Toolbar count={wordCount} deleteFunc={deleteText} insertTabFunc={() => setText(text + "    ")} sendFunc={confirmSend} />
       </KeyboardAvoidingView>
     </View>
   )
@@ -119,20 +121,20 @@ const styles = StyleSheet.create({
     padding: 25,
   },
 
-    rules: {
-      fontFamily: "Inter_300Light",
-      fontSize: 12,
-      color: "white"
-    },
+  rules: {
+    fontFamily: "Inter_300Light",
+    fontSize: 12,
+    color: "white"
+  },
 
-    letterField: {
-      marginTop: 20,
-      backgroundColor: "#443450",
-      borderRadius: 20,
-      flex: 1,
-      padding: 20,
-      textAlignVertical: "top",
-      color: "white",
+  letterField: {
+    marginTop: 20,
+    backgroundColor: "#443450",
+    borderRadius: 20,
+    flex: 1,
+    padding: 20,
+    textAlignVertical: "top",
+    color: "white",
 
-    }
+  }
 })
