@@ -18,7 +18,7 @@ export default function ProfileMenu() {
     return (
 
         <View style={styles.container}>
-            <ToolbarButton icon='pencil' text='Edit name' iconLeft={true} onPress={handleSignOut} />
+            <ToolbarButton icon='pencil' text='Edit name' iconLeft={true} onPress={() => router.push("/other/editName")} />
             <View style={{height: 5}} />
             <ToolbarButton icon='information' text='About' iconLeft={true} onPress={() => router.push("/other/about")} />
             <View style={{height: 5}} />
