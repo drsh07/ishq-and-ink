@@ -17,7 +17,7 @@ export default function ScannerScreen() {
     if (!permission.granted) {
         return (
             <>
-                <Pressable onPress={() => router.back()} style={{ position: 'absolute', top: 700, left: 20 }}>
+                <Pressable onPress={() => router.back()} style={{ position: 'absolute', top: 670, left: 20 }}>
                     <Text style={styles.button}>Log Out</Text>
                 </Pressable>
                 <View style={styles.container}>

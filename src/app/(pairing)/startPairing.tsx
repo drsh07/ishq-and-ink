@@ -17,7 +17,7 @@ export default function StartPairingScreen() {
 
     return (
             <View style={styles.container}>
-                <View style={{ position: 'absolute', top: 700, left: 20 }}>
+                <View style={{ position: 'absolute', top: 670, left: 20 }}>
                 <ToolbarButton text='Log out' backgroundColor="#ce9ee8" onPress={handleSignOut} icon='logout' />
             </View>
                 <Text style={styles.mainText}>You aren't linked to your partner yet</Text>

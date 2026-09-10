@@ -48,6 +48,10 @@ export default function LoginScreen() {
             <KeyboardAvoidingView
                 style={{ width: "100%", flex: 1, alignItems: "center" }}
                 behavior="padding"
+                keyboardVerticalOffset={20}
+            >
+            <ScrollView contentContainerStyle={{alignItems: "center", paddingTop: 50}}
+            style={{width: "100%"}}
             >
                 <View style={{ flexGrow: 0.4 }} />
                 <Text style={styles.appHeader}>Ishq & Ink</Text>
@@ -93,6 +97,7 @@ export default function LoginScreen() {
                         )}
                 </View>
                 <Link href={"/(auth)/createAccount"} style={{ color: "white" }}>Create Account</Link>
+                </ScrollView>
             </KeyboardAvoidingView>
         </View>
     )
@@ -105,7 +110,8 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
         alignItems: 'center',
         padding: 25,
-        backgroundColor: "#281b33"
+        backgroundColor: "#281b33",
+        width: "100%"
     },
 
     appHeader: {

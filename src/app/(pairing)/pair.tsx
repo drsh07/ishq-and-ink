@@ -98,7 +98,7 @@ export default function PairScreen() {
 
     return (
         <View style={styles.container}>
-            <View style={{ position: 'absolute', top: 700, left: 20 }}>
+            <View style={{ position: 'absolute', top: 670, left: 20 }}>
                 <ToolbarButton text='Back' backgroundColor="#ce9ee8" onPress={() => router.back()} icon='arrow-left' />
             </View>
             <Text style={[styles.mainText, { marginBottom: 20 }]}>Your QR code:</Text>
