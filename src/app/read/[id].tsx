@@ -1,13 +1,9 @@
-import { View, Text, Pressable, StyleSheet, TextInput, KeyboardAvoidingView, ScrollView, Alert, Keyboard } from "react-native";
-import { signOut } from "firebase/auth";
-import { auth, db } from "../../../firebaseConfig";
-import Header from '@/components/header';
-import Toolbar from "@/components/toolbar";
-import { useEffect, useState } from 'react';
-import { addDoc, collection, getDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
-import { useLocalSearchParams, router } from "expo-router";
-import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import ToolbarButton from "@/components/ToolbarButton";
+import { router, useLocalSearchParams } from "expo-router";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { useEffect, useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { db } from "../../../firebaseConfig";
 
 export default function ReadLetterScreen() {
 

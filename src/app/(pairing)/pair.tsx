@@ -1,11 +1,11 @@
+import ToolbarButton from '@/components/ToolbarButton';
+import { CameraView } from 'expo-camera';
 import { router } from 'expo-router';
-import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
+import { doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
+import { useEffect, useState, } from 'react';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import { auth, db } from '../../../firebaseConfig';
-import { CameraView, Camera } from 'expo-camera';
-import { doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
-import { useState, useEffect, } from 'react';
-import ToolbarButton from '@/components/ToolbarButton';
 
 export default function PairScreen() {
 

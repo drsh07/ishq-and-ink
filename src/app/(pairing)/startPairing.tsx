@@ -1,8 +1,8 @@
-import { signOut } from 'firebase/auth';
-import { BackHandler, Pressable, StyleSheet, Text, View } from 'react-native';
-import { auth } from '../../../firebaseConfig';
-import { router } from 'expo-router';
 import ToolbarButton from '@/components/ToolbarButton';
+import { router } from 'expo-router';
+import { signOut } from 'firebase/auth';
+import { StyleSheet, Text, View } from 'react-native';
+import { auth } from '../../../firebaseConfig';
 
 export default function StartPairingScreen() {
 

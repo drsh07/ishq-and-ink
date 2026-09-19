@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet, TextInput, Alert, ActivityIndicator } from 'react-native';
-import { useState, useEffect } from 'react';
-import { auth, db } from '../../../firebaseConfig';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import ToolbarButton from '../../components/ToolbarButton';
 import { router } from 'expo-router';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, Alert, StyleSheet, Text, TextInput, View } from 'react-native';
+import { auth, db } from '../../../firebaseConfig';
+import ToolbarButton from '../../components/ToolbarButton';
 
 export default function EditNameScreen() {
 

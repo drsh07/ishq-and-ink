@@ -1,10 +1,6 @@
-import { Text, View, StyleSheet, Pressable, ActivityIndicatorBase } from 'react-native';
-import { Playfair_400Regular } from '@expo-google-fonts/playfair';
-import { auth } from '../../../firebaseConfig';
-import { router } from 'expo-router';
-import QRCode from 'react-native-qrcode-svg';
-import { ActivityIndicator } from 'react-native';
 import { useCameraPermissions } from 'expo-camera';
+import { router } from 'expo-router';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 export default function ScannerScreen() {
 

@@ -1,8 +1,8 @@
-import { View, Text, Pressable, StyleSheet } from 'react-native';
-import ToolbarButton from './ToolbarButton';
-import { auth } from '../../firebaseConfig';
-import { signOut } from 'firebase/auth';
 import { router } from 'expo-router';
+import { signOut } from 'firebase/auth';
+import { StyleSheet, View } from 'react-native';
+import { auth } from '../../firebaseConfig';
+import ToolbarButton from './ToolbarButton';
 
 export default function ProfileMenu() {
 

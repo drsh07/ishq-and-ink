@@ -1,7 +1,5 @@
 import { router } from 'expo-router';
-import { View, Pressable, StyleSheet, Text } from 'react-native';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { db } from '../../firebaseConfig';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 type Props = {
     text: string,

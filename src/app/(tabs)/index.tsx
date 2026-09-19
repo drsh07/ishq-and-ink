@@ -1,10 +1,10 @@
-import { View, Text, Pressable, StyleSheet, TextInput, KeyboardAvoidingView, ScrollView, Alert, Keyboard } from "react-native";
-import { signOut } from "firebase/auth";
-import { auth, db } from "../../../firebaseConfig";
 import Header from '@/components/header';
 import Toolbar from "@/components/toolbar";
+import { signOut } from "firebase/auth";
+import { addDoc, collection, doc, getDoc, serverTimestamp } from "firebase/firestore";
 import { useEffect, useState } from 'react';
-import { addDoc, collection, getDoc, doc, serverTimestamp } from "firebase/firestore";
+import { Alert, Keyboard, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { auth, db } from "../../../firebaseConfig";
 
 export default function Index() {
 

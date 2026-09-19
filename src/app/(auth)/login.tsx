@@ -1,9 +1,9 @@
-import { View, StyleSheet, Text, TextInput, KeyboardAvoidingView, ScrollView, ActivityIndicator } from "react-native";
-import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth"
-import { auth } from "../../../firebaseConfig"
-import { router, useRouter, Link } from "expo-router";
 import ToolbarButton from "@/components/ToolbarButton";
+import { Link } from "expo-router";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
+import { ActivityIndicator, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { auth } from "../../../firebaseConfig";
 
 export default function LoginScreen() {
 

@@ -1,6 +1,6 @@
-import { View, Text, Pressable, StyleSheet } from "react-native";
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import { useState } from 'react';
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import ProfileMenu from "./ProfileMenu";
 
 export default function Header() {

@@ -1,10 +1,9 @@
-import { View, StyleSheet, Text, TextInput, KeyboardAvoidingView, ScrollView } from "react-native";
-import { useState } from "react";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
-import { auth, db } from "../../../firebaseConfig"
-import { router, useRouter } from "expo-router";
-import { doc, setDoc } from "firebase/firestore";
 import ToolbarButton from "@/components/ToolbarButton";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { useState } from "react";
+import { KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { auth, db } from "../../../firebaseConfig";
 
 export default function CreateAccountScreen() {
 

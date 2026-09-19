@@ -1,5 +1,5 @@
-import { Text, View, Pressable, StyleSheet } from 'react-native';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
+import { Pressable, StyleSheet, Text } from 'react-native';
 
 type Props = {
     text?: string,

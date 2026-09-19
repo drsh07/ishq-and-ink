@@ -1,10 +1,10 @@
-import { View, Text, Pressable, StyleSheet, TextInput, KeyboardAvoidingView, ScrollView, FlatList } from "react-native";
-import { signOut } from "firebase/auth";
-import { auth, db } from "../../../firebaseConfig";
 import Header from '@/components/header';
 import LetterCard from "@/components/LetterCard";
+import { signOut } from "firebase/auth";
+import { collection, DocumentData, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { useEffect, useState } from 'react';
-import { doc, getDocs, collection, query, where, orderBy, onSnapshot, DocumentData } from "firebase/firestore";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import { auth, db } from "../../../firebaseConfig";
 
 export default function Index() {
 
