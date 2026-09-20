@@ -57,6 +57,7 @@ About the name, **Ishq** means "*love*" in Hindi, and **Ink** represents the per
 - Push notifications on letter arrival
 - Sorting received letters by other means
 - Drafts feature, so user can continue writing their letters later
+- Icon and splash screen
 
 ## License
 [MIT](LICENSE)
