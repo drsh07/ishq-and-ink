@@ -32,15 +32,6 @@ export default function Index() {
 
   }, []);
 
-  const handleSignOut = async () => {
-    try {
-      await signOut(auth);
-    }
-    catch (error) {
-      console.log(error);
-    }
-  }
-
 
 
   return (
