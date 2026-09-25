@@ -1,6 +1,6 @@
 import Header from '@/components/header';
 import LetterCard from "@/components/LetterCard";
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { collection, DocumentData, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, Text, View } from "react-native";
@@ -12,17 +12,24 @@ export default function Index() {
 
   useEffect(() => {
 
-    if (!auth.currentUser) return;
+    const authUnsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        return;
+      }
+      const letterQuery = query(collection(db, "letters"), orderBy("timestamp", "desc"), where("to", "==", auth.currentUser!.uid));
+      const unsubscribe = onSnapshot(letterQuery, (lettersSnapshot) => {
+        const newLetters = lettersSnapshot.docs.map((letter) => ({ id: letter.id, ...letter.data() }));
+        setLetters(newLetters);
 
-    const letterQuery = query(collection(db, "letters"), orderBy("timestamp", "desc"), where("to", "==", auth.currentUser!.uid));
-    const unsubsribe = onSnapshot(letterQuery, (lettersSnapshot) => {
-      const newLetters = lettersSnapshot.docs.map((letter) => ({ id: letter.id, ...letter.data() }));
-      setLetters(newLetters);
-      
-      const unreadCount = letters.filter((letter) => letter.read === false).length
+        const unreadCount = letters.filter((letter) => letter.read === false).length
 
-    })
-    return unsubsribe;
+      });
+      return unsubscribe;
+
+    });
+
+    return authUnsubscribe;
+
   }, []);
 
   const handleSignOut = async () => {
@@ -42,8 +49,8 @@ export default function Index() {
       <Text style={{ fontFamily: "Playfair_400Regular", color: "white", fontSize: 30 }}>Read</Text>
       <Text style={styles.rules}>Read your partner's letters</Text>
       {letters.length === 0 ? (
-        <View style={{alignItems: "center", flex: 1, justifyContent: "center"}}>
-          <Text style={{fontFamily: "Inter_300Light", color: "#919191"}}>No letters unfortunately :( </Text>
+        <View style={{ alignItems: "center", flex: 1, justifyContent: "center" }}>
+          <Text style={{ fontFamily: "Inter_300Light", color: "#919191" }}>No letters unfortunately :( </Text>
         </View>
       ) : (
         <FlatList

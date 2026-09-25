@@ -15,6 +15,7 @@ export default function PairScreen() {
     useEffect(() => {
 
         const unsubscribe = onSnapshot(doc(db, "users", auth.currentUser!.uid), (snap) => {
+            console.log("Listener fired, data:", snap.data());
             if (snap.data()!.partnerId !== null) {
 
                 fetchPartnerName(snap.data()!.partnerId).then((partnerName) => {
